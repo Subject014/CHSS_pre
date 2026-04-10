@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Geoportal visualizador | CHSS Buildings</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+            <h1>CHSS preliminar<span class="badge">CHSS</span></h1>
+        </div>
+        <div class="header-right">
+            <div id="loadingStatus" class="status-indicator">Iniciando sistema...</div>
+            <div class="sync-box">
+                <span id="loadProgress">0</span> / <span id="totalCount">--</span>
+            </div>
+        </div>
+    </header>
+
+    <div class="dashboard-container">
+        <aside class="analysis-panel">
+            <div id="noSelection" class="empty-state">
+                <div class="icon">🏘️</div>
+                <h3>Sin selección</h3>
+                <p>Haz clic en un edificio del mapa para ver el análisis detallado.</p>
+            </div>
+
+            <div id="selectionContent" style="display: none;">
+                <section class="info-section">
+                    <h2 id="buildingName">Nombre Edificio</h2>
+                    <p id="buildingAddress" class="address"></p>
+                    <div class="kpi-grid">
+                        <div class="kpi-card">
+                            <span class="kpi-label">Niveles</span>
+                            <span id="kpiNiveles" class="kpi-value">--</span>
+                        </div>
+                        <div class="kpi-card">
+                            <span class="kpi-label">Elev. Max</span>
+                            <span id="kpiElev" class="kpi-value">--</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="chart-section">
+                    <h3>Perfil Estructural</h3>
+                    <div class="canvas-container">
+                        <canvas id="radarChart"></canvas>
+                    </div>
+                </section>
+
+                <section class="attributes-section">
+                    <h3>Atributos Técnicos</h3>
+                    <div id="attributeList" class="attr-table"></div>
+                </section>
+            </div>
+        </aside>
+
+        <main id="map-container">
+            <div id="map"></div>
+            
+            <div class="map-overlay legend">
+                <h4>Capas</h4>
+                <div id="legendItems"></div>
+            </div>
+
+            <div class="map-overlay base-selector">
+                <select id="baseMapSelect">
+                    <option value="googleSat">Google Satélite</option>
+                    <option value="dark">Carto Dark</option>
+                </select>
+            </div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
